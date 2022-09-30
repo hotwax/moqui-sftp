@@ -49,7 +49,8 @@ along with this software (see the LICENSE.md file). If not, see
                 String sendPath = ec.resource.expand(systemMessageType.sendPath, null,
                         [systemMessageId:systemMessage.systemMessageId, remoteMessageId:systemMessage.remoteMessageId,
                          systemMessageTypeId:systemMessage.systemMessageTypeId, systemMessageRemoteId:systemMessage.systemMessageRemoteId,
-                         date:ec.l10n.format(msgDate, "yyyy-MM-dd"), dateTime:ec.l10n.format(msgDate, "yyyy-MM-dd-HH-mm-ss")], false)
+                         date:ec.l10n.format(msgDate, "yyyy-MM-dd"), dateTime:ec.l10n.format(msgDate, "yyyy-MM-dd-HH-mm-ss"),
+                         sftpUsername:systemMessageRemote.username], false)
                 String filename = systemMessage.remoteMessageId ?: systemMessage.systemMessageId
                 Charset charset = Charset.forName(systemMessageRemote.remoteCharset ?: "UTF-8")
 
