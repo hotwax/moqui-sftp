@@ -54,6 +54,8 @@ dependencies {
 
     // Apache Mina SSHD - Apache 2.0 - https://mina.apache.org/sshd-project/index.html
     implementation 'org.apache.sshd:sshd-sftp:2.7.0'
+
+    implementation 'org.apache.commons:commons-text:1.9'
 }
 
 // by default the Java plugin runs test on build, change to not do that (only run test if explicit task)

@@ -158,12 +158,14 @@ along with this software (see the LICENSE.md file). If not, see
 
                         String filePath = receivePath + '/' + filename
                         String messageText = sftpClient.getText(filePath, charset)
+                        // To escape message text to avoid errors due to html tag and greater than (>) or less than (<) sign
+                        String messageTextHtmlEscaped = org.apache.commons.text.StringEscapeUtils.escapeHtml4(messageText)
 
                         // create SystemMessage with SystemMessageServices.receive#IncomingSystemMessage
                         // NOTE requireNewTransaction(true) so we make sure the TX is committed before a response like delete or move
                         Map<String, Object> result = ec.service.sync().name("org.moqui.impl.SystemMessageServices.receive#IncomingSystemMessage")
                                 .parameter("systemMessageTypeId", systemMessageTypeId).parameter("systemMessageRemoteId", systemMessageRemoteId)
-                                .parameter("remoteMessageId", filename).parameter("messageText", messageText).disableAuthz()
+                                .parameter("remoteMessageId", filename).parameter("messageText", messageTextHtmlEscaped).disableAuthz()
                                 .requireNewTransaction(true).call()
                         // NOTE: consider trying other files, but if there is an error saving a message it is likely to persist
                         if (ec.message.hasError()) {
