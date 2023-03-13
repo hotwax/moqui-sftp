@@ -158,7 +158,11 @@ along with this software (see the LICENSE.md file). If not, see
 
                         String filePath = receivePath + '/' + filename
                         String messageText = sftpClient.getText(filePath, charset)
-                        // To escape message text to avoid errors due to html tag and greater than (>) or less than (<) sign
+                        // System message text does not allow HTML tags in receive#SystemMessage service
+                        // So it returns error when incoming text has HTML tags or symbols like greater than (>) or less than (<)  to be saved in messageText
+                        // Eg. HTML text received in the item description fields from Shopify API or reports
+                        // As an OMS, storing HTML content can be skipped, the data is just needed to be stored as text
+                        // So the change is done to escape the HTML before saving in System Message
                         String messageTextHtmlEscaped = org.apache.commons.text.StringEscapeUtils.escapeHtml4(messageText)
 
                         // create SystemMessage with SystemMessageServices.receive#IncomingSystemMessage
