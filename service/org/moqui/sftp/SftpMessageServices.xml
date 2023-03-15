@@ -107,13 +107,15 @@ along with this software (see the LICENSE.md file). If not, see
                 import org.moqui.sftp.SftpClient
                 import java.nio.charset.Charset
 
+                //NOTE: The service is customised to add the support of sftpUsername in receivePath and receiveMovePath for
+                //file name preparation when sending files to SFTP
                 String receivePath = ec.resource.expand(systemMessageType.receivePath, null,
-                        [systemMessageTypeId:systemMessageTypeId, systemMessageRemoteId:systemMessageRemoteId], false)
+                        [systemMessageTypeId:systemMessageTypeId, systemMessageRemoteId:systemMessageRemoteId,sftpUsername:systemMessageRemote.username], false)
                 Charset charset = Charset.forName(systemMessageRemote.remoteCharset ?: "UTF-8")
                 String filePattern = systemMessageType.receiveFilePattern
                 String receiveResponseEnumId = systemMessageType.receiveResponseEnumId
                 String receiveMovePath = ec.resource.expand(systemMessageType.receiveMovePath, null,
-                        [systemMessageTypeId:systemMessageTypeId, systemMessageRemoteId:systemMessageRemoteId], false)
+                        [systemMessageTypeId:systemMessageTypeId, systemMessageRemoteId:systemMessageRemoteId,sftpUsername:systemMessageRemote.username], false)
 
                 // use SftpClient to put the file
                 String sftpHost = (String) systemMessageRemote.receiveUrl ?: (String) systemMessageRemote.sendUrl
