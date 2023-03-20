@@ -166,7 +166,7 @@ along with this software (see the LICENSE.md file). If not, see
                         // NOTE requireNewTransaction(true) so we make sure the TX is committed before a response like delete or move
                         Map<String, Object> result = ec.service.sync().name("org.moqui.impl.SystemMessageServices.receive#IncomingSystemMessage")
                                 .parameter("systemMessageTypeId", systemMessageTypeId).parameter("systemMessageRemoteId", systemMessageRemoteId)
-                                .parameter("remoteMessageId", filename).parameter("messageText", messageText).parameter("consumeSmrId", consumeSmrId).parameter("mode", "sync").disableAuthz()
+                                .parameter("remoteMessageId", filename).parameter("messageText", messageText).parameter("consumeSmrId", consumeSmrId).disableAuthz()
                                 .requireNewTransaction(true).call()
                         // NOTE: consider trying other files, but if there is an error saving a message it is likely to persist
                         if (ec.message.hasError()) {
