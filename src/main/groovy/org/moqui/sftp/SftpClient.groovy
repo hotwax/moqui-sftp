@@ -228,7 +228,10 @@ class SftpClient implements Closeable, AutoCloseable {
         return this
     }
     /** Put a file from an InputStream; path may be to a target directory or file path, if directory filename is used as remote filename in path directory */
-    SftpClient put(String path, String filename, InputStream is) {
+    SftpClient put(String path, String filename, InputStream is, boolean createDir = false) {
+        if (createDir){
+            sftpClient.mkdirs(path)
+        }
         if (sftpClient == null || !sshClient.isConnected()) throw new IllegalStateException("SFTP Client not connected")
         StreamSourceFile ssf = new StreamSourceFile(filename, is)
         sftpClient.put(ssf, path)
